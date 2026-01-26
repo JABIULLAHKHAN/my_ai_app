@@ -6,8 +6,7 @@ st.set_page_config(page_title="Jabi AI Assistant", page_icon="🤖")
 st.title("🤖 Jabi's AI Assistant")
 
 # API Setup
-api_key = "AIzaSyAbBCLCwWj4zkAHVMxWzRnHGLKMrQtaydI"
-genai.configure(api_key=api_key)
+genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
 model = genai.GenerativeModel('gemini-2.5-flash')
 
 # Chat History (Mobile app ki tarah purani baten yaad rakhne ke liye)
