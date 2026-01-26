@@ -1,10 +1,10 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 1. Page Configuration (App ka title aur icon)
+# 1. Page Configuration
 st.set_page_config(page_title="Jabi's AI Assistant", page_icon="🤖")
 
-# 2. CSS for Styling (App ko sundar banane ke liye)
+# 2. CSS for Styling (Ab isme error nahi aayega)
 st.markdown("""
     <style>
     .main {
@@ -14,30 +14,27 @@ st.markdown("""
         border-radius: 20px;
     }
     </style>
-    """, unsafe_allow_index=True)
+    """, unsafe_allow_html=True) # Yahan galti thi, ab sahi kar di hai
 
 st.title("🤖 Jabi's AI Assistant")
-st.write("Assalam-o-Alaikum! Main aapka personal AI assistant hun. Poochiye kya poochna hai?")
+st.write("Assalam-o-Alaikum! Main aapka personal AI assistant hun.")
 
-# 3. API Key Setup (Secrets se key uthayega)
+# 3. API Key Setup
 try:
-    # Yahan humne secrets use kiya hai taaki key leak na ho
     api_key = st.secrets["GOOGLE_API_KEY"]
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-pro')
 except Exception as e:
-    st.error("API Key setup mein galti hai. Please Secrets check karein.")
+    st.error("Pehle Streamlit Settings > Secrets mein apni API Key dalein.")
 
 # 4. Chat Interface
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Purani baatein dikhana
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Naya sawaal poochna
 if prompt := st.chat_input("Kuch bhi poochiye..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
