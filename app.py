@@ -23,7 +23,7 @@ st.write("Assalam-o-Alaikum! Main aapka personal AI assistant hun.")
 try:
     api_key = st.secrets["GOOGLE_API_KEY"]
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-1.5-flash')
 except Exception as e:
     st.error("Pehle Streamlit Settings > Secrets mein apni API Key dalein.")
 
